@@ -46,15 +46,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             if (jwtUtil.validateToken(jwt)) {
                 // Extrae el rol del JWT
-                Integer rol = jwtUtil.getRol(jwt);
-                List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-
-                // Aquí mapeamos los roles a nombres que Spring entiende
-                if (rol == 1) {
-                    authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-                } else if (rol == 2) {
-                    authorities.add(new SimpleGrantedAuthority("ROLE_EDITOR"));
-                } // ...más roles si quieres
+              String rol = jwtUtil.getRol(jwt);
+              List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(rol));
 
                 UsernamePasswordAuthenticationToken authToken =
                         new UsernamePasswordAuthenticationToken(username, null, authorities);

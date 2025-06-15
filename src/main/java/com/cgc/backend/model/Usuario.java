@@ -1,4 +1,5 @@
 package com.cgc.backend.model;
+import com.cgc.backend.model.Rol;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -14,19 +15,23 @@ public class Usuario {
     private String correo;
     private String username;
     private String password;
-    private Integer rol;
+    @Enumerated(EnumType.STRING)
+    private Rol rol;
 
     public Usuario() {}
 
-    public Usuario(String nombre, String correo, String username, String password, Integer rol) {
-        this.nombre = nombre;
-        this.correo = correo;
-        this.username = username;
-        this.password = password;
-        this.rol = rol;
-    }
 
-    // Getters y setters
+
+  public Usuario(Long id, String nombre, String correo, String username, String password, Rol rol) {
+    this.id = id;
+    this.nombre = nombre;
+    this.correo = correo;
+    this.username = username;
+    this.password = password;
+    this.rol = rol;
+  }
+
+  // Getters y setters
 
     public Long getId() {
         return id;
@@ -69,12 +74,14 @@ public class Usuario {
         this.password = password;
     }
 
-    public Integer getRol() {
-        return rol;
+    public Rol getRol() {
+      return rol;
     }
 
-    public void setRol(Integer rol) {
-        this.rol = rol;
+    public void setRol(Rol rol) {
+      this.rol = rol;
     }
+
+
 
 }

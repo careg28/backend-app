@@ -15,7 +15,7 @@ public class JwtUtil {
     private final Key key = Keys.hmacShaKeyFor(SECRET.getBytes());
 
     // Generar token con username y rol
-    public String generateToken(String username, Integer rol) {
+    public String generateToken(String username, String rol) {
         return Jwts.builder()
                 .setSubject(username)
                 .claim("rol", rol)
@@ -33,11 +33,11 @@ public class JwtUtil {
     }
 
     // Obtener rol del token
-    public Integer getRol(String token) {
-        Claims claims = Jwts.parserBuilder().setSigningKey(key).build()
-                .parseClaimsJws(token)
-                .getBody();
-        return claims.get("rol", Integer.class);
+    public String getRol(String token) {
+      Claims claims = Jwts.parserBuilder().setSigningKey(key).build()
+        .parseClaimsJws(token)
+        .getBody();
+      return claims.get("rol", String.class);
     }
 
     // Validar token

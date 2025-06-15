@@ -58,13 +58,13 @@ public class UsuarioController {
             Usuario usuario = usuarioOpt.get();
             if (passwordEncoder.matches(password, usuario.getPassword())) {
                 // Ahora incluye el rol en el JWT
-                String token = jwtUtil.generateToken(username, usuario.getRol());
+              String token = jwtUtil.generateToken(username, usuario.getRol().name());
                 return ResponseEntity.ok(Map.of(
-                        "token", token,
-                        "username", usuario.getUsername(),
-                        "rol", usuario.getRol(),
-                        "nombre", usuario.getNombre(),   // <-- Nuevo
-                        "correo", usuario.getCorreo()    // <-- Nuevo
+                  "token", token,
+                  "username", usuario.getUsername(),
+                  "rol", usuario.getRol().name(),   // <-- aquí también
+                  "nombre", usuario.getNombre(),
+                  "correo", usuario.getCorreo()
                 ));
             }
         }
